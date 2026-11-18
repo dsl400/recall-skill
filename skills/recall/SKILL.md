@@ -6,18 +6,10 @@ metadata:
   version: 0.1.0
 ---
 
-## Usage
-
-Pass one or more transcript paths or session IDs:
+## Synopsis
 
 ```sh
-node recall.mjs <transcript-path-or-session-id>...
-
-# One session
-node recall.mjs <session-id>
-
-# Multiple sessions
-node recall.mjs <session-id-1> <session-id-2>
+node recall.mjs <session-id-1> [<session-id-2>]
 ```
 
 ## Flow
