@@ -1,6 +1,6 @@
 ---
 name: recall
-description: Use when recalling conversations from local Claude Code or Codex transcripts.
+description: Use when recalling Claude Code or Codex conversations.
 metadata:
   source: https://github.com/dsl400/recall-skill
   version: 0.1.0
