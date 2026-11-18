@@ -26,13 +26,18 @@ jobs:
         run: |
           gh release download --repo dsl400/lnl --pattern lnl.mjs
           node lnl.mjs lint skills/recall/SKILL.md
-      - name: Check the script
-        run: node --check skills/recall/recall.mjs
+      - name: Build and test the script
+        run: |
+          npm ci
+          npm run build
+          git diff --exit-code -- skills/recall/recall.mjs
+          npm test
+          node --check skills/recall/recall.mjs
       - name: Pack the skill
         run: |
-          mkdir -p pack/recall && cp -r skills/recall/. pack/recall/
+          mkdir -p pack/recall && cp skills/recall/SKILL.md skills/recall/recall.mjs pack/recall/
           tar -czf recall.tar.gz -C pack recall
       - name: Create the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" recall.tar.gz skills/recall/SKILL.md --title "$GITHUB_REF_NAME" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" recall.tar.gz skills/recall/recall.mjs skills/recall/SKILL.md --title "$GITHUB_REF_NAME" --generate-notes

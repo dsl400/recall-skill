@@ -1,0 +1,21 @@
+{
+  "name": "recall",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "entities": "^6.0.0",
+    "htmlparser2": "^10.0.0",
+    "marked": "^15.0.12"
+  },
+  "scripts": {
+    "build": "esbuild src/recall.js --bundle --platform=node --format=esm --target=node20 --outfile=skills/recall/recall.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

@@ -9,8 +9,8 @@ metadata:
 # recall
 
 Run `recall.mjs` beside this file with transcript paths or session IDs. Resolve
-commands below from this skill's folder. Use Node.js 20 or later and install
-dependencies with `npm ci --omit=dev` when they are missing.
+commands below from this skill's folder. Use Node.js 20 or later. The script
+includes its dependencies.
 
 ```sh
 node recall.mjs <transcript-path-or-session-id>...
@@ -58,7 +58,6 @@ START:
   DO    identify the transcript paths or session IDs relevant to the request
   ASK   is the intended session ambiguous?
   STOP  ask the user which session to read IF yes
-  DO    install missing dependencies with npm ci --omit=dev in this skill's folder
   DO    run node recall.mjs with the selected paths or session IDs from this skill's folder
   ASK   did the command fail?
   STOP  report the diagnostic and the input needed to continue IF yes

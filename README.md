@@ -5,8 +5,7 @@ Code and Codex JSONL transcripts. The script accepts transcript paths or
 session IDs and prints a compact conversation with timestamps.
 
 The skill is `skills/recall/SKILL.md`. Its flow is written in
-[lnl](https://github.com/dsl400/lnl). The script and its dependency manifests
-sit beside the skill.
+[lnl](https://github.com/dsl400/lnl). The prebuilt script sits beside the skill and includes its dependencies.
 
 ## Why each check exists
 
@@ -19,21 +18,33 @@ sit beside the skill.
 
 ## Install
 
-Node.js 20 or later runs the script and its dependencies.
+Node.js 20 or later runs the prebuilt script.
 
 ```sh
 mkdir -p ~/.claude/skills
 gh release download --repo dsl400/recall-skill --pattern recall.tar.gz -O - | tar -xz -C ~/.claude/skills
-cd ~/.claude/skills/recall
-npm ci --omit=dev
 ```
 
 Or use the `recall` submodule of
-[dsl400/skills](https://github.com/dsl400/skills) and run `npm ci --omit=dev`
-in `recall/skills/recall`.
+[dsl400/skills](https://github.com/dsl400/skills). The checked-in bundle runs
+directly with `node recall/skills/recall/recall.mjs <session-id>`.
+
+## Build
+
+Edit `src/recall.js` and rebuild from the repository root:
+
+```sh
+npm ci
+npm run build
+npm test
+```
+
+Commit `skills/recall/recall.mjs` with source changes so submodule consumers
+can run it directly. Development dependencies stay in the repository root.
+The build targets Node.js 20 to match the supported runtime.
 
 ## Release workflow
 
-A `v*` tag writes the skill version, lints the flow, checks the script, and
-publishes `recall.tar.gz`. The archive includes the script and locked dependency
-manifests; installation fetches the dependencies with npm.
+A `v*` tag writes the skill version, lints the flow, rebuilds and tests the
+script, and publishes `recall.tar.gz` and `recall.mjs`. The archive contains
+`SKILL.md` and the bundled script.
