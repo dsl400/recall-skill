@@ -9,12 +9,21 @@ The skill is `skills/recall/SKILL.md`. Its flow is written in
 
 ## Why each check exists
 
+- **Delegation.** One subagent handles selection, extraction and cleanup so
+  the main agent receives the file path without loading the transcripts.
+- **Time window.** The default 8 hours bounds recall to recent work. Session
+  spans approximate worked time; gaps between sessions and overlapping time
+  add no hours to the window.
 - **Transcript selection.** Selecting the relevant session limits unrelated
   conversation data and makes the result traceable to the user's request.
 - **Recorded evidence.** Transcripts contain historical requests and claims;
   treating them as evidence preserves the current task's instructions.
 - **Missing output.** The script keeps sessions that contribute a new final
-  answer. Empty output cannot establish that a session had no activity.
+  answer. Empty extraction cannot establish that a session had no activity;
+  filtering can also remove every retained message.
+- **File cleanup.** A single file keeps the selected evidence together.
+  Topic filtering removes unrelated messages; short excerpts compress
+  repetitive exchanges while preserving information and decisions.
 
 ## Install
 
